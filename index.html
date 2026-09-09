@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabitha Digital - Business Automation System</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>Tabitha Digital</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#businesses">Businesses</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+                <li><a href="admin/login.html" class="admin-link">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h2>Automate Your Service Business</h2>
+            <p>Manage bookings, clients, and payments effortlessly</p>
+            <button class="cta-button" onclick="document.getElementById('businesses').scrollIntoView()">Explore Businesses</button>
+        </div>
+    </section>
+
+    <!-- Featured Businesses Section -->
+    <section class="businesses" id="businesses">
+        <div class="container">
+            <h2>Featured Businesses</h2>
+            <div class="business-grid">
+                <!-- StyledbyMoh Salon Demo -->
+                <div class="business-card">
+                    <div class="business-image">
+                        <img src="demo/images/salon-placeholder.jpg" alt="StyledbyMoh Salon">
+                    </div>
+                    <div class="business-info">
+                        <h3>StyledbyMoh Salon</h3>
+                        <p class="category">Beauty & Hair Salon</p>
+                        <p class="description">Premium beauty and hair services with experienced professionals</p>
+                        <p class="contact">
+                            <strong>Phone:</strong> +254 712 345 678
+                        </p>
+                        <a href="demo/styledbymooh.html" class="view-btn">View Details & Book</a>
+                    </div>
+                </div>
+            </div>
+            <p class="note">More businesses coming soon...</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Browse Businesses</h3>
+                    <p>Explore available service businesses in your area</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>View Services</h3>
+                    <p>Check out services, prices, and availability</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Book Online</h3>
+                    <p>Reserve your appointment easily online</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Receive Confirmation</h3>
+                    <p>Get instant booking confirmation and reminders</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2>Pricing for Businesses</h2>
+            <div class="pricing-card">
+                <div class="price-detail">
+                    <h3>Setup Fee</h3>
+                    <p class="price">KES 15,000</p>
+                    <p class="description">One-time setup and configuration</p>
+                </div>
+                <div class="price-detail">
+                    <h3>Monthly Fee</h3>
+                    <p class="price">KES 2,000</p>
+                    <p class="description">Ongoing platform maintenance and support</p>
+                </div>
+            </div>
+            <p class="pricing-note">For business inquiries, contact us through the admin panel</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tabitha Digital. All rights reserved.</p>
+            <p>Automate. Manage. Succeed.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
