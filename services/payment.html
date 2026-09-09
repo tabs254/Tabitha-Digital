@@ -1,0 +1,287 @@
+<!-- Payment Gateway Integration Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Tabitha Digital</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .payment-container {
+            max-width: 600px;
+            margin: 3rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 1rem;
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .payment-method {
+            padding: 1.5rem;
+            border: 2px solid #ecf0f1;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .payment-method:hover,
+        .payment-method.active {
+            border-color: #e74c3c;
+            background-color: #fff5f5;
+            transform: translateY(-2px);
+        }
+
+        .payment-method h3 {
+            margin: 0.5rem 0;
+            color: #2c3e50;
+        }
+
+        .payment-details {
+            background: #f4f4f4;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .amount-display {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .amount-display h2 {
+            color: #e74c3c;
+            margin: 0;
+        }
+
+        .pay-button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .pay-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .pay-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>Tabitha Digital</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../admin/login.html" class="admin-link">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Payment Container -->
+    <div class="container">
+        <div class="payment-container">
+            <div class="payment-header">
+                <h1>Secure Payment</h1>
+                <p>Choose your preferred payment method</p>
+            </div>
+
+            <div class="amount-display">
+                <p style="color: #7f8c8d; margin: 0;">Amount to Pay</p>
+                <h2 id="amountDisplay">KES 0.00</h2>
+            </div>
+
+            <div class="payment-methods" id="paymentMethods">
+                <div class="payment-method" onclick="selectPayment('mpesa', this)">
+                    <div style="font-size: 2rem;">📱</div>
+                    <h3>M-Pesa</h3>
+                    <p style="font-size: 0.9rem; color: #7f8c8d;">Mobile Money</p>
+                </div>
+                <div class="payment-method" onclick="selectPayment('card', this)">
+                    <div style="font-size: 2rem;">💳</div>
+                    <h3>Card</h3>
+                    <p style="font-size: 0.9rem; color: #7f8c8d;">Visa/Mastercard</p>
+                </div>
+                <div class="payment-method" onclick="selectPayment('bank', this)">
+                    <div style="font-size: 2rem;">🏦</div>
+                    <h3>Bank</h3>
+                    <p style="font-size: 0.9rem; color: #7f8c8d;">Bank Transfer</p>
+                </div>
+            </div>
+
+            <form id="paymentForm" onsubmit="processPayment(event)">
+                <div class="payment-details" id="paymentDetails" style="display: none;">
+                    <div id="mpesaForm" class="payment-form" style="display: none;">
+                        <h3>M-Pesa Payment</h3>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="+254712345678" required>
+                        </div>
+                        <p style="color: #7f8c8d; font-size: 0.9rem;">Enter your M-Pesa registered phone number. You will receive a prompt to complete the payment.</p>
+                    </div>
+
+                    <div id="cardForm" class="payment-form" style="display: none;">
+                        <h3>Card Payment</h3>
+                        <div class="form-group">
+                            <label for="cardName">Cardholder Name</label>
+                            <input type="text" id="cardName" name="cardName" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="expiry">Expiry Date</label>
+                                <input type="text" id="expiry" name="expiry" placeholder="MM/YY" maxlength="5" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="bankForm" class="payment-form" style="display: none;">
+                        <h3>Bank Transfer</h3>
+                        <div style="background: #e8f4f8; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                            <p><strong>Bank Name:</strong> Kenya Commercial Bank</p>
+                            <p><strong>Account Name:</strong> Tabitha Digital Limited</p>
+                            <p><strong>Account Number:</strong> 1234567890</p>
+                            <p><strong>Branch Code:</strong> 001</p>
+                            <p><strong>Amount:</strong> <span id="bankAmount">KES 0.00</span></p>
+                        </div>
+                        <div class="form-group">
+                            <label for="refNumber">Reference Number</label>
+                            <input type="text" id="refNumber" name="refNumber" placeholder="Your name or booking ref" required>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="pay-button" id="payButton" disabled>Select Payment Method</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Tabitha Digital. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        let selectedPaymentMethod = null;
+
+        function selectPayment(method, element) {
+            selectedPaymentMethod = method;
+            
+            // Update UI
+            document.querySelectorAll('.payment-method').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            
+            // Show payment details
+            document.getElementById('paymentDetails').style.display = 'block';
+            document.querySelectorAll('.payment-form').forEach(form => form.style.display = 'none');
+            
+            if (method === 'mpesa') {
+                document.getElementById('mpesaForm').style.display = 'block';
+            } else if (method === 'card') {
+                document.getElementById('cardForm').style.display = 'block';
+            } else if (method === 'bank') {
+                document.getElementById('bankForm').style.display = 'block';
+            }
+            
+            // Enable pay button
+            document.getElementById('payButton').disabled = false;
+            document.getElementById('payButton').textContent = `Pay KES ${getAmount()}`;
+        }
+
+        function getAmount() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('amount') || '2000';
+        }
+
+        function processPayment(event) {
+            event.preventDefault();
+            
+            if (!selectedPaymentMethod) {
+                alert('Please select a payment method');
+                return;
+            }
+
+            const amount = getAmount();
+            
+            if (selectedPaymentMethod === 'mpesa') {
+                const phone = document.getElementById('phone').value;
+                alert(`M-Pesa Payment Initiated\n\nPhone: ${phone}\nAmount: KES ${amount}\n\nYou will receive a prompt on your phone to complete the payment.`);
+            } else if (selectedPaymentMethod === 'card') {
+                const cardNumber = document.getElementById('cardNumber').value;
+                alert(`Card Payment Initiated\n\nCard: ****${cardNumber.slice(-4)}\nAmount: KES ${amount}\n\nProcessing...`);
+            } else if (selectedPaymentMethod === 'bank') {
+                alert(`Bank Transfer Details\n\nAmount: KES ${amount}\n\nPlease transfer to the bank details shown above and include the reference number.`);
+            }
+            
+            // Simulate successful payment
+            setTimeout(() => {
+                alert('Payment successful! Your booking has been confirmed.');
+                window.location.href = '../index.html';
+            }, 2000);
+        }
+
+        // Initialize
+        document.getElementById('amountDisplay').textContent = `KES ${getAmount()}`;
+        document.getElementById('bankAmount').textContent = `KES ${getAmount()}`;
+    </script>
+</body>
+</html>
