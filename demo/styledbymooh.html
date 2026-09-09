@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StyledbyMoh Salon - Tabitha Digital</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .business-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .business-header .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .business-hero-image {
+            width: 100%;
+            height: 300px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #95a5a6;
+        }
+
+        .business-hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .business-info-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .business-info-header .rating {
+            color: #f39c12;
+            margin-bottom: 1rem;
+        }
+
+        .business-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .detail-item strong {
+            color: #e74c3c;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .gallery-item {
+            width: 100%;
+            height: 200px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .services-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+
+        .service-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            padding: 1.5rem;
+            border: 1px solid #ecf0f1;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .service-details h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-price {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.3rem;
+            margin: 0.5rem 0;
+        }
+
+        .service-duration {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .book-btn {
+            background-color: #27ae60;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .book-btn:hover {
+            background-color: #229954;
+        }
+
+        .booking-form {
+            background: #f4f4f4;
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .booking-form h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-family: inherit;
+        }
+
+        .submit-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #c0392b;
+        }
+
+        @media (max-width: 768px) {
+            .business-header .container {
+                grid-template-columns: 1fr;
+            }
+
+            .service-card {
+                grid-template-columns: 1fr;
+            }
+
+            .business-hero-image {
+                height: 200px;
+            }
+
+            .business-info-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>Tabitha Digital</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../index.html#businesses">Businesses</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#booking">Book Now</a></li>
+                <li><a href="../admin/login.html" class="admin-link">Admin</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Business Header -->
+    <section class="business-header">
+        <div class="container">
+            <div class="business-hero-image">
+                <img src="images/salon-hero.jpg" alt="StyledbyMoh Salon" onerror="this.alt='StyledbyMoh Salon - Professional Hair & Beauty Services'">
+            </div>
+            <div class="business-info-header">
+                <h1>StyledbyMoh Salon</h1>
+                <div class="rating">★★★★★ (4.8 out of 5 - 32 reviews)</div>
+                <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">Premium beauty and hair services with experienced professionals. We specialize in haircuts, styling, and beauty treatments.</p>
+                
+                <div class="business-details">
+                    <div class="detail-item">
+                        <strong>📍 Location:</strong>
+                        <span>Nairobi, Kenya</span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>📞 Phone:</strong>
+                        <span>+254 712 345 678</span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>⏰ Hours:</strong>
+                        <span>9:00 AM - 6:00 PM</span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>📧 Email:</strong>
+                        <span>info@styledbymooh.com</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="container">
+        <h2 style="color: #2c3e50; margin: 2rem 0;">Photo Gallery</h2>
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="images/salon-1.jpg" alt="Salon Interior" onerror="this.alt='Salon Interior'">
+            </div>
+            <div class="gallery-item">
+                <img src="images/salon-2.jpg" alt="Hair Styling" onerror="this.alt='Hair Styling'">
+            </div>
+            <div class="gallery-item">
+                <img src="images/salon-3.jpg" alt="Beauty Treatment" onerror="this.alt='Beauty Treatment'">
+            </div>
+            <div class="gallery-item">
+                <img src="images/salon-4.jpg" alt="Professional Team" onerror="this.alt='Professional Team'">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="container" id="services">
+        <div class="services-section">
+            <h2>Our Services & Prices</h2>
+            
+            <div class="service-card">
+                <div class="service-details">
+                    <h3>Hair Cutting</h3>
+                    <p class="service-description">Professional haircut and styling for all hair types</p>
+                    <p class="service-price">KES 500</p>
+                    <p class="service-duration">⏱️ Duration: 30 minutes</p>
+                </div>
+                <button class="book-btn" onclick="scrollToBooking()">Book Service</button>
+            </div>
+
+            <div class="service-card">
+                <div class="service-details">
+                    <h3>Hair Coloring</h3>
+                    <p class="service-description">Complete hair coloring with premium products</p>
+                    <p class="service-price">KES 1,200</p>
+                    <p class="service-duration">⏱️ Duration: 1 hour</p>
+                </div>
+                <button class="book-btn" onclick="scrollToBooking()">Book Service</button>
+            </div>
+
+            <div class="service-card">
+                <div class="service-details">
+                    <h3>Hair Treatment</h3>
+                    <p class="service-description">Deep conditioning and hair spa treatment</p>
+                    <p class="service-price">KES 800</p>
+                    <p class="service-duration">⏱️ Duration: 45 minutes</p>
+                </div>
+                <button class="book-btn" onclick="scrollToBooking()">Book Service</button>
+            </div>
+
+            <div class="service-card">
+                <div class="service-details">
+                    <h3>Facial Treatment</h3>
+                    <p class="service-description">Complete facial care with skincare products</p>
+                    <p class="service-price">KES 1,500</p>
+                    <p class="service-duration">⏱️ Duration: 1 hour</p>
+                </div>
+                <button class="book-btn" onclick="scrollToBooking()">Book Service</button>
+            </div>
+
+            <div class="service-card">
+                <div class="service-details">
+                    <h3>Makeup Application</h3>
+                    <p class="service-description">Professional makeup for events and occasions</p>
+                    <p class="service-price">KES 2,000</p>
+                    <p class="service-duration">⏱️ Duration: 1 hour 30 minutes</p>
+                </div>
+                <button class="book-btn" onclick="scrollToBooking()">Book Service</button>
+            </div>
+
+            <div class="service-card">
+                <div class="service-details">
+                    <h3>Package Deal</h3>
+                    <p class="service-description">Hair Cut + Color + Treatment (3 in 1)</p>
+                    <p class="service-price">KES 2,500</p>
+                    <p class="service-duration">⏱️ Duration: 2 hours</p>
+                </div>
+                <button class="book-btn" onclick="scrollToBooking()">Book Service</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section class="container" id="booking">
+        <div class="booking-form">
+            <h2>Book Your Appointment</h2>
+            <form id="bookingForm" onsubmit="submitBooking(event)">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="Your full name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="Your phone number">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Your email address">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="service">Select Service *</label>
+                        <select id="service" name="service" required>
+                            <option value="">-- Choose a service --</option>
+                            <option value="Hair Cutting">Hair Cutting - KES 500</option>
+                            <option value="Hair Coloring">Hair Coloring - KES 1,200</option>
+                            <option value="Hair Treatment">Hair Treatment - KES 800</option>
+                            <option value="Facial Treatment">Facial Treatment - KES 1,500</option>
+                            <option value="Makeup Application">Makeup Application - KES 2,000</option>
+                            <option value="Package Deal">Package Deal - KES 2,500</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Preferred Date *</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="time">Preferred Time *</label>
+                        <input type="time" id="time" name="time" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Special Requests / Notes</label>
+                    <textarea id="notes" name="notes" rows="4" placeholder="Any special requests or additional information?"></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Confirm Booking</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 StyledbyMoh Salon - Powered by Tabitha Digital</p>
+            <p>Contact: +254 712 345 678 | Email: info@styledbymooh.com</p>
+        </div>
+    </footer>
+
+    <script>
+        function scrollToBooking() {
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function submitBooking(event) {
+            event.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const service = document.getElementById('service').value;
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+
+            alert(`Booking Confirmation!\n\n` +
+                `Name: ${name}\n` +
+                `Phone: ${phone}\n` +
+                `Service: ${service}\n` +
+                `Date: ${date}\n` +
+                `Time: ${time}\n\n` +
+                `Thank you! We will confirm your booking shortly.\n` +
+                `A confirmation message has been sent to ${phone}`);
+            
+            // Reset form
+            document.getElementById('bookingForm').reset();
+        }
+    </script>
+</body>
+</html>
