@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tabitha Digital - Admin Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,sans-serif}
+body{background:#f8fafc;display:flex;min-height:100vh}
+.sidebar{width:260px;background:#0f0f0f;color:#fff;padding:24px 16px;position:fixed;height:100vh}
+.sidebar a{display:flex;gap:10px;color:#aaa;padding:12px;border-radius:10px;text-decoration:none;margin-bottom:6px;font-size:14px}
+.sidebar a.active,.sidebar a:hover{background:#222;color:#fff}
+.main{margin-left:260px;flex:1;padding:24px}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:18px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:20px}
+.section{display:none}.section.active{display:block}
+.item{display:flex;gap:14px;align-items:center;background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:14px;margin-bottom:12px}
+.thumb{width:64px;height:64px;border-radius:12px;background:#f3f4f6;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.thumb img{width:100%;height:100%;object-fit:cover}
+.btn{border:none;border-radius:8px;padding:8px 12px;font-size:12px;font-weight:600;cursor:pointer}
+.btn-dark{background:#0f0f0f;color:#fff}.btn-red{background:#ef4444;color:#fff}.btn-orange{background:#f59e0b;color:#fff}.btn-green{background:#10b981;color:#fff}.btn-ghost{background:#fff;border:1px solid #ddd}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9999;display:flex;align-items:center;justify-content:center;padding:16px}
+.modal-box{background:#fff;border-radius:18px;padding:22px;width:100%;max-width:460px}
+.input{width:100%;padding:12px 14px;border:1px solid #d1d5db;border-radius:10px;margin-bottom:12px;font-size:14px}
+.badge{font-size:11px;padding:4px 8px;border-radius:20px;font-weight:600}.badge-green{background:#dcfce7;color:#166534}.badge-red{background:#fee2e2;color:#991b1b}
+@media(max-width:800px){.sidebar{position:relative;width:100%;height:auto}.main{margin-left:0}body{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="sidebar">
+<h2>Tabitha Digital</h2><div style="color:#888;font-size:12px;margin:6px 0 20px">Admin • 15k + 2k/mo</div>
+<a href="#" class="active" onclick="showSec('overview',this)">📊 Overview</a>
+<a href="#" onclick="showSec('businesses',this)">🏢 Businesses</a>
+<a href="#" onclick="showSec('clients',this)">👥 Clients</a>
+<a href="#" onclick="showSec('payments',this)">💳 Payments</a>
+</div>
+<div class="main">
+<div style="display:flex;justify-content:space-between;margin-bottom:20px"><h1 id="pageTitle">Overview</h1><button class="btn btn-dark" onclick="openAdd()">+ Add Business</button></div>
+
+<div id="overview" class="section active">
+<div class="grid">
+<div class="card"><h2 id="cActive">0</h2><p style="color:#666;font-size:13px">Active Businesses</p></div>
+<div class="card"><h2 id="cTotal">0</h2><p style="color:#666;font-size:13px">Total</p></div>
+<div class="card"><h2 id="cLocked">0</h2><p style="color:#666;font-size:13px">Locked</p></div>
+</div>
+<div class="card"><h3>Recent</h3><div id="recentList" style="margin-top:10px"></div></div>
+</div>
+
+<div id="businesses" class="section">
+<div class="card" style="display:flex;justify-content:space-between;align-items:center"><h3>All Businesses</h3><button class="btn btn-dark" onclick="openAdd()">+ Add</button></div>
+<div id="bizList"></div>
+</div>
+
+<div id="clients" class="section"><div class="card"><h3>Clients & Bookings</h3><p style="color:#666;margin-top:8px">Connected to your services/ folder</p></div></div>
+<div id="payments" class="section"><div class="card"><h3>Payments - 15k setup + 2k monthly</h3><div id="payList" style="margin-top:12px"></div></div></div>
+</div>
+
+<script>
+let businesses=JSON.parse(localStorage.getItem('tabitha_businesses')||'[]');
+if(businesses.length==0)businesses=[{id:1,name:"StyledbyMoh Salon",category:"Salon",phone:"0700000000",location:"Ngong, Kenya",photo:"",locked:false,monthlyPaid:true}];
+function showSec(id,el){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');document.getElementById('pageTitle').textContent=id;document.querySelectorAll('.sidebar a').forEach(a=>a.classList.remove('active'));if(el)el.classList.add('active');render();}
+function render(){localStorage.setItem('tabitha_businesses',JSON.stringify(businesses));document.getElementById('cActive').textContent=businesses.filter(b=>!b.locked).length;document.getElementById('cTotal').textContent=businesses.length;document.getElementById('cLocked').textContent=businesses.filter(b=>b.locked).length;
+let html=businesses.map(b=>`<div class="item"><div class="thumb">${b.photo?`<img src="${b.photo}">`:'🏢'}</div><div style="flex:1"><b>${b.name} ${b.locked?'🔒':''}</b><br><small style="color:#666">${b.category} • ${b.phone} • ${b.location}</small><br><span class="badge ${b.locked?'badge-red':'badge-green'}">${b.locked?'Locked':'Active'}</span></div><div style="display:flex;flex-direction:column;gap:6px"><button class="btn ${b.locked?'btn-green':'btn-orange'}" onclick="toggleLock(${b.id})">${b.locked?'Unlock':'Lock'}</button><button class="btn btn-red" onclick="delBiz(${b.id})">Delete</button></div></div>`).join('');
+document.getElementById('bizList').innerHTML=html||'<div class="card" style="text-align:center;color:#888">No businesses</div>';
+document.getElementById('recentList').innerHTML=businesses.slice(-3).reverse().map(b=>`<div style="padding:8px 0;border-bottom:1px solid #eee;display:flex;gap:8px"><div style="width:36px;height:36px;border-radius:8px;background:#f3f4f6;overflow:hidden">${b.photo?`<img src="${b.photo}" style="width:100%;height:100%;object-fit:cover">`:'🏢'}</div><div><b style="font-size:13px">${b.name}</b><div style="font-size:11px;color:#666">${b.location}</div></div></div>`).join('')||'None';
+document.getElementById('payList').innerHTML=businesses.map(b=>`<div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #eee;font-size:13px"><span>${b.name}</span><span>KES 2k/mo ${b.locked?'🔒':''}</span></div>`).join('');
+}
+function openAdd(){let old=document.getElementById('addModal');if(old)old.remove();let m=document.createElement('div');m.id='addModal';m.className='modal';m.innerHTML=`<div class="modal-box"><h3 style="margin-bottom:12px">Add New Business</h3><input id="fName" class="input" placeholder="Business Name *"><input id="fCat" class="input" placeholder="Category" value="Salon"><input id="fPhone" class="input" placeholder="Phone"><input id="fLoc" class="input" placeholder="Location" value="Ngong, Kenya"><label style="font-size:12px">Business Photo:</label><input id="fPhoto" type="file" accept="image/*" class="input"><div id="preview" style="display:none;margin-bottom:12px"><img id="prevImg" style="width:100%;height:160px;object-fit:cover;border-radius:10px"></div><div style="display:flex;gap:10px"><button class="btn btn-ghost" style="flex:1;padding:12px" onclick="document.getElementById('addModal').remove()">Cancel</button><button class="btn btn-dark" style="flex:1;padding:12px" onclick="saveBiz()">Save</button></div></div>`;document.body.appendChild(m);document.getElementById('fPhoto').onchange=e=>{let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=ev=>{document.getElementById('preview').style.display='block';document.getElementById('prevImg').src=ev.target.result;};r.readAsDataURL(f);};}
+function saveBiz(){let name=document.getElementById('fName').value.trim();if(!name){alert('Name required');return;}let cat=document.getElementById('fCat').value.trim()||'Salon';let phone=document.getElementById('fPhone').value.trim()||'0700000000';let loc=document.getElementById('fLoc').value.trim()||'Ngong';let photoEl=document.getElementById('prevImg');let photo=photoEl&&photoEl.src&&photoEl.src.startsWith('data:')?photoEl.src:"";businesses.push({id:Date.now(),name,category:cat,phone,location:loc,photo,locked:false,monthlyPaid:false});render();document.getElementById('addModal').remove();showSec('businesses',document.querySelectorAll('.sidebar a')[1]);}
+function delBiz(id){if(!confirm('Delete?'))return;businesses=businesses.filter(b=>b.id!==id);render();}
+function toggleLock(id){let b=businesses.find(x=>x.id===id);if(b){b.locked=!b.locked;render();}}
+document.addEventListener('DOMContentLoaded',render);
+</script>
+</body>
+</html>
